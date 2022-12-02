@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script type="text/javascript" src="https://vk.com/js/api/openapi.js?169"></script>
+
+<!-- VK Widget -->
+<script type="text/javascript">
+VK.Widgets.CommunityMessages("vk_community_messages", 216407665, {expanded: "1",tooltipButtonText: "Есть вопрос или может ты обнаружил ошибку?"});
+</script>
+<style>
+@font-face {
+    font-family: 'Ruberoid';
+    src: url('Ruberoid-Bold.eot');
+    src: local('Ruberoid Bold'), local('Ruberoid-Bold'),
+        url('Ruberoid-Bold.eot?#iefix') format('embedded-opentype'),
+        url('Ruberoid-Bold.woff2') format('woff2'),
+        url('Ruberoid-Bold.woff') format('woff'),
+        url('Ruberoid-Bold.ttf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+}
+        body{ cursor: default;width: 100%;height: 100%;margin: 0;padding: 0; background-color:#0d1117;font-family: Ruberoid;color: #c9d1d9; }.main{width: 100%;height: 10%; background: #161b22;}
+        .main{    height: 80px;display: flex;justify-content: space-between;align-items: center;box-shadow: 0px 8px 20px 0px rgb(231 244 160 / 20%);}
+    main{overflow:hidden;display:flex;width: 100%;height: 100%;justify-content: center;}
+    logo_name{font-size: 20px;padding-left: 10px}
+    logo{font-size: 30px;padding-right: 10px}
+    footer{position: absolute;bottom: 0px;width: 90%;height: 10%;border-top: 3px solid #FFFFFF;}
+    .thr{background: rgba(22, 27, 34, 0.54);border-radius: 10px;margin: 40px 20px 5px 20px;display: flex}
+    .thr{display: flex;flex-wrap: wrap;flex-direction: column;}
+    .server{border-radius: 10px;margin: 40px;}
+    .server_header{display: flex;flex-direction: column;align-items: center;background: rgba(22, 27, 34, 0.54)}
+    a{background: rgba(0, 20, 255, 0.49);border-radius: 5px;padding-left: 2px;padding-right: 2px;}
+    .prok {padding: 5px;height: 50%!important;word-wrap:break-word}
+    body::-webkit-scrollbar {
+    width: 5px;
+    background-color: rgba(26, 24, 47, 0.15);
+    border-radius: 5px;
+    height: 200px;
+}
+    body::-webkit-scrollbar-thumb {
+    background: #1A182F;
+    border-radius: 5px;
+}
+</style>
+</head>
+    <body>
+    <header class="main"><logo_name>VK_RSS API ENDPOINTS</logo_name><logo>ZMT</logo></header>
+        <main><div style="display: flex;flex-direction: column;">
+            <div style="display: flex;align-items: center;background: rgba(0, 0, 0, 0)" class='thr'><div style="background: rgba(22, 27, 34, 0.54)!important" class="get api"><header style="background: rgba(22, 27, 34, 0.54)!important" class="header_api"></header></div>
+            
+            <div class="status_api">API Version: v1</div><div>Now Avaible</div></div>
+            <div class='thr prok'>
+            <div class="link">Адрес запроса: <a class="adress">/api/v1/r(num)</a></div>
+            <div class="metod">R - Способ запроса подразумевающий использование <a>GET</a>.<br> При использовании данного запроса вы получите в ответ JSON расчётное колличество пар по распианию. <br>При запросе важно указывать аргумент вместо num. <br>Аргумент должен иметь значение int в диапозоне от 1 до 6. Данным аргументом вы указываете день недели который хотите запросить.</div>
+            <div class="json"><ul><li><b>Колличество - </b><a style="background: #ad7309">PARTIAL_PASS</a> Определяет колличество пар в запрошеный день.</li><li><b>День</b> - Определяет запрошеный день по которому вёлся расчёт.</li><li><b>Определитель</b> - Определяет склонение слово пары посредтвом анализа.</li></ul></div>
+            <div class="num_values"><dl><dt>Num(int, arg) values</dt><dd><ul><li>1 - Понедельник</li><li>2 - Вторник</li><li>3 - Среда</li><li>4 - Четверг</li><li>5 - Пятница</li><li>6 - Суббота</li></ul></dd></dl></div>
+                <example style="display: flex;">Пример ответа: <img src="example1.png"></example>
+            </div>
+            
+            <div class='thr prok'>
+                 <div class="link">Адрес запроса: <a class="adress">/api/v1/i(num)</a></div>
+            <div class="metod">I - Способ запроса подразумевающий использование <a>GET</a>.<br> При использовании данного запроса вы получите в ответ JSON точные данные по парам на запрошеный день недели. <br>При запросе важно указывать аргумент вместо num. <br>Аргумент должен иметь значение int в диапозоне от 1 до 6. Данным аргументом вы указываете день недели который хотите запросить.</div>
+            <div class="json"><ul><li><b>Ауд</b> - Определяет номер аудитории в которой проходит расчётная пара.</li><li><b>Пара</b> - Определяет Название предмета соответсвующего номеру пары и аудитории.</li><li><b>Подгруппа -</b> <a style="background: #a90000">PASS</a></li><li>Предмет - Определяет название предмета в расписании</li> <li>Тип - Определяет тип лекции, доступные значения(Практика, Лекция)</li></ul></div>
+            <div class="num_values"><dl><dt>Num(int, arg) values</dt><dd><ul><li>1 - Понедельник</li><li>2 - Вторник</li><li>3 - Среда</li><li>4 - Четверг</li><li>5 - Пятница</li><li>6 - Суббота</li></ul></dd></dl></div>
+            <example style="display: flex;">Пример ответа: <img src="example2.png"></example>
+            </div>
+            </div>
+            <div class="server"><header class="server_header">SERVER STATS</header><br>Condition<br>Response -ms<br>Localtime<br>IP:</div>
+        </main>
+    </body>
+</html>
