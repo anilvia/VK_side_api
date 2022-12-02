@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <meta charset="utf-8">
     <script type="text/javascript" src="https://vk.com/js/api/openapi.js?169"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 
@@ -9,6 +10,23 @@
 VK.Widgets.CommunityMessages("vk_community_messages", 216407665, {expanded: "1",tooltipButtonText: "Есть вопрос или может ты обнаружил ошибку?"});
 </script>
 <style>
+    @keyframes blink{
+        0%{background:rgba(255, 0, 0, 0.49)}
+        100%{background:rgba(255, 0, 0, 0)}
+                    }
+    @keyframes blink_v2{
+        0%{background:rgba(88, 0, 255, 0.49)}
+        100%{background:rgba(88, 0, 255, 0)}
+                    }
+@property --rotate {
+  syntax: "<angle>";
+  initial-value: 132deg;
+  inherits: false;
+}
+:root {
+  --card-height: 35vh;
+  --card-width: calc(var(--card-height) / 1.5);
+}
 @font-face {
     font-family: 'Ruberoid';
     src: url('Ruberoid-Bold.eot');
@@ -28,7 +46,7 @@ VK.Widgets.CommunityMessages("vk_community_messages", 216407665, {expanded: "1",
     footer{position: absolute;bottom: 0px;width: 90%;height: 10%;border-top: 3px solid #FFFFFF;}
     .thr{background: rgba(22, 27, 34, 0.54);border-radius: 10px;margin: 40px 20px 5px 20px;display: flex}
     .thr{display: flex;flex-wrap: wrap;flex-direction: column;}
-    .server{border-radius: 10px;margin: 40px;}
+    .server{border-radius: 10px;margin: 40px;max-height: 125px;}
     .server_header{display: flex;flex-direction: column;align-items: center;background: rgba(22, 27, 34, 0.54)}
     a{background: rgba(0, 20, 255, 0.49);border-radius: 5px;padding-left: 2px;padding-right: 2px;}
     .prok {padding: 5px;height: 50%!important;word-wrap:break-word}
@@ -41,6 +59,53 @@ VK.Widgets.CommunityMessages("vk_community_messages", 216407665, {expanded: "1",
     body::-webkit-scrollbar-thumb {
     background: #1A182F;
     border-radius: 5px;
+}   .SCC    {background: rgba(88, 0, 255, 0.49);}
+    .ERR    {background: rgba(255, 0, 0, 0.36);}
+    .card   {background: #191c29;position: relative;border-radius: 6px;padding: 5px;}
+    .card:hover {
+  color: rgb(88 199 250 / 100%);
+  transition: color 1s;
+}
+    .card::before {
+  content: "";
+  width: 104%;
+  height: 104%;
+  border-radius: 8px;
+  background-image: linear-gradient(
+    var(--rotate)
+    , #5ddcff, #3c67e3 43%, #4e00c2);
+    position: absolute;
+    z-index: -1;
+    top: -2%;
+    left: -2%;
+    animation: spin 2.5s linear infinite;
+}
+    .card::after {
+  position: absolute;
+  content: "";
+  top: 0px;
+  left: 0;
+  right: 0;
+  z-index: -1;
+  height: 100%;
+  width: 100%;
+  margin: 0 auto;
+  transform: scale(0.8);
+  filter: blur(calc(var(--card-height) / 6));
+  background-image: linear-gradient(
+    var(--rotate)
+    , #5ddcff, #3c67e3 43%, #4e00c2);
+    opacity: 1;
+  transition: opacity .5s;
+  animation: spin 2.5s linear infinite;
+}
+    @keyframes spin {
+  0% {
+    --rotate: 0deg;
+  }
+  100% {
+    --rotate: 360deg;
+  }
 }
 </style>
 </head>
@@ -66,23 +131,40 @@ VK.Widgets.CommunityMessages("vk_community_messages", 216407665, {expanded: "1",
             <example style="display: flex;">Пример ответа: <img src="example2.png"></example>
             </div>
             </div>
-            <div class="server"><header class="server_header">SERVER STATS</header><br>Condition<br>Response <div id="resp"></div>-ms<br>Localtime<br>IP: 212.22.67.253</div>
+            <div class="server card"><header class="server_header">SERVER STATS</header><br>Condition: <b id="status"></b><br>Response: <b id="resp"></b>-ms<br>IP: 212.22.67.253</div>
         </main>
     </body>
     <script type="text/javascript">
         async function response() {
             var startTime = (new Date()).getTime();
-            let response = await fetch('http://192.168.1.2/api/v1/r1');
+            let response = await fetch('http://192.168.1.2:5000/api/v1/i1')
+            .catch(() => document.getElementById("resp").innerHTML = '<a class="ERR">Time Out</a>');
         if (response.ok) {
                 let json = await response.json();
-} else {
-  alert("Ошибка HTTP: " + response.status);
-}
+}       
 
 
 var endTime = (new Date()).getTime();
-document.getElementById("resp").innerHTML = endTime - startTime;
+            MS = endTime - startTime;
+            if(MS > 100){document.getElementById("resp").innerHTML = '<a class="SCC" style="animation-name: blink_v2;animation-direction: alternate;animation-duration: 2s;animation-iteration-count: 1;">'+MS+'</a>';}
+            if(MS < 100){document.getElementById("resp").innerHTML = '<a class="ERR" style="animation-name: blink;animation-direction: alternate;animation-duration: 2s;animation-iteration-count: 1;">Time Out</a>';}
+        return MS
         }
-response()
+MS_L = 1;
+
+
+
+async function server_status(){ 
+    let response = await fetch('http://192.168.1.2:5000/api/server')
+        .catch(() => document.getElementById("status").innerHTML = '<a class="ERR" style="animation-name: blink;animation-direction: alternate;animation-duration: 2s;animation-iteration-count: 1;">Offline</a>');
+    let status = await response.json();
+                                if (status!=null){document.getElementById("status").innerHTML = '<a class="SCC" style="animation-name: blink_v2;animation-direction: alternate;animation-duration: 2s;animation-iteration-count: 1;">'+'Online'+'</a>';
+                                                }else {
+                                                    document.getElementById("status").innerHTML = '<a class="ERR" style="animation-name: blink;animation-direction: alternate;animation-duration: 2s;animation-iteration-count: 1;">Offline</a>';
+}}
+server_status()
+        response()
+            setInterval(response, 2000);setInterval(server_status, 2000)
+document.querySelector(".update").onclick = server_status();response();
 </script>
 </html>
