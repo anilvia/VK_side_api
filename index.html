@@ -72,9 +72,14 @@ VK.Widgets.CommunityMessages("vk_community_messages", 216407665, {expanded: "1",
     <script type="text/javascript">
         
 var startTime = (new Date()).getTime();
-        fetch('http://192.168.1.2/api/v1/r1')
-  .then((response) => response.json())
-  .then((data) => console.log(data));
+let response = await fetch('http://192.168.1.2/api/v1/r1');
+        if (response.ok) { // если HTTP-статус в диапазоне 200-299
+  // получаем тело ответа (см. про этот метод ниже)
+  let json = await response.json();
+} else {
+  alert("Ошибка HTTP: " + response.status);
+}
+
 
 var endTime = (new Date()).getTime();
 document.getElementById("resp").innerHTML = endTime - startTime;
