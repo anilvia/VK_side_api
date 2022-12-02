@@ -7,6 +7,10 @@
 <script type="text/javascript">
 VK.Widgets.CommunityMessages("vk_community_messages", 216407665, {expanded: "1",tooltipButtonText: "Есть вопрос или может ты обнаружил ошибку?"});
 </script>
+<script type="text/javascript">
+var startTime = (new Date()).getTime()
+document.getElementById("resp").innerHTML = startTime;
+</script>
 <style>
 @font-face {
     font-family: 'Ruberoid';
@@ -65,7 +69,7 @@ VK.Widgets.CommunityMessages("vk_community_messages", 216407665, {expanded: "1",
             <example style="display: flex;">Пример ответа: <img src="example2.png"></example>
             </div>
             </div>
-            <div class="server"><header class="server_header">SERVER STATS</header><br>Condition<br>Response -ms<br>Localtime<br>IP: 212.22.67.253</div>
+            <div class="server"><header class="server_header">SERVER STATS</header><br>Condition<br>Response <div id="resp"></div>-ms<br>Localtime<br>IP: 212.22.67.253</div>
         </main>
     </body>
 </html>
