@@ -8,9 +8,6 @@
 <script type="text/javascript">
 VK.Widgets.CommunityMessages("vk_community_messages", 216407665, {expanded: "1",tooltipButtonText: "Есть вопрос или может ты обнаружил ошибку?"});
 </script>
-   <script type="text/javascript">
-var startTime = (new Date()).getTime();
-</script>
 <style>
 @font-face {
     font-family: 'Ruberoid';
@@ -73,6 +70,12 @@ var startTime = (new Date()).getTime();
         </main>
     </body>
     <script type="text/javascript">
+        
+var startTime = (new Date()).getTime();
+        fetch('http://192.168.1.2/api/v1/r1')
+  .then((response) => response.json())
+  .then((data) => console.log(data));
+
 var endTime = (new Date()).getTime();
 document.getElementById("resp").innerHTML = endTime - startTime;
 </script>
